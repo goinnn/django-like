@@ -1,0 +1,110 @@
+Index: db/models/sql/constants.py
+===================================================================
+--- db/models/sql/constants.py	(revisión: 17282)
++++ db/models/sql/constants.py	(copia de trabajo)
+@@ -5,6 +5,7 @@
+     'exact', 'iexact', 'contains', 'icontains', 'gt', 'gte', 'lt', 'lte', 'in',
+     'startswith', 'istartswith', 'endswith', 'iendswith', 'range', 'year',
+     'month', 'day', 'week_day', 'isnull', 'search', 'regex', 'iregex',
++    'like', 'ilike',
+     )])
+ 
+ # Size of each "chunk" for get_iterator calls.
+Index: db/models/fields/__init__.py
+===================================================================
+--- db/models/fields/__init__.py	(revisión: 17282)
++++ db/models/fields/__init__.py	(copia de trabajo)
+@@ -303,7 +303,7 @@
+         if lookup_type in (
+                 'regex', 'iregex', 'month', 'day', 'week_day', 'search',
+                 'contains', 'icontains', 'iexact', 'startswith', 'istartswith',
+-                'endswith', 'iendswith', 'isnull'
++                'endswith', 'iendswith', 'isnull', 'ilike', 'like',
+             ):
+             return value
+         elif lookup_type in ('exact', 'gt', 'gte', 'lt', 'lte'):
+@@ -340,7 +340,7 @@
+             return QueryWrapper(('(%s)' % sql), params)
+ 
+         if lookup_type in ('regex', 'iregex', 'month', 'day', 'week_day',
+-                           'search'):
++                           'search', 'like', 'ilike'):
+             return [value]
+         elif lookup_type in ('exact', 'gt', 'gte', 'lt', 'lte'):
+             return [self.get_db_prep_value(value, connection=connection,
+Index: db/backends/sqlite3/base.py
+===================================================================
+--- db/backends/sqlite3/base.py	(revisión: 17282)
++++ db/backends/sqlite3/base.py	(copia de trabajo)
+@@ -218,6 +218,8 @@
+         'endswith': "LIKE %s ESCAPE '\\'",
+         'istartswith': "LIKE %s ESCAPE '\\'",
+         'iendswith': "LIKE %s ESCAPE '\\'",
++        'like': "LIKE %s ESCAPE '\\'",
++        'ilike': "LIKE %s ESCAPE '\\'",
+     }
+ 
+     def __init__(self, *args, **kwargs):
+Index: db/backends/mysql/base.py
+===================================================================
+--- db/backends/mysql/base.py	(revisión: 17282)
++++ db/backends/mysql/base.py	(copia de trabajo)
+@@ -302,6 +302,8 @@
+         'endswith': 'LIKE BINARY %s',
+         'istartswith': 'LIKE %s',
+         'iendswith': 'LIKE %s',
++        'like': 'LIKE BINARY %s',
++        'ilike': 'LIKE %s',
+     }
+ 
+     def __init__(self, *args, **kwargs):
+Index: db/backends/oracle/base.py
+===================================================================
+--- db/backends/oracle/base.py	(revisión: 17282)
++++ db/backends/oracle/base.py	(copia de trabajo)
+@@ -218,7 +218,8 @@
+         return cursor.fetchone()[0]
+ 
+     def lookup_cast(self, lookup_type):
+-        if lookup_type in ('iexact', 'icontains', 'istartswith', 'iendswith'):
++        if lookup_type in ('iexact', 'icontains',
++                           'istartswith', 'iendswith', 'ilike'):
+             return "UPPER(%s)"
+         return "%s"
+ 
+@@ -419,6 +420,8 @@
+         'endswith': "LIKE TRANSLATE(%s USING NCHAR_CS) ESCAPE TRANSLATE('\\' USING NCHAR_CS)",
+         'istartswith': "LIKE UPPER(TRANSLATE(%s USING NCHAR_CS)) ESCAPE TRANSLATE('\\' USING NCHAR_CS)",
+         'iendswith': "LIKE UPPER(TRANSLATE(%s USING NCHAR_CS)) ESCAPE TRANSLATE('\\' USING NCHAR_CS)",
++        'like': "LIKE TRANSLATE(%s USING NCHAR_CS) ESCAPE TRANSLATE('\\' USING NCHAR_CS)",
++        'ilike': "LIKE UPPER(TRANSLATE(%s USING NCHAR_CS)) ESCAPE TRANSLATE('\\' USING NCHAR_CS)",
+     }
+ 
+     _likec_operators = _standard_operators.copy()
+Index: db/backends/postgresql_psycopg2/base.py
+===================================================================
+--- db/backends/postgresql_psycopg2/base.py	(revisión: 17282)
++++ db/backends/postgresql_psycopg2/base.py	(copia de trabajo)
+@@ -101,6 +101,8 @@
+         'endswith': 'LIKE %s',
+         'istartswith': 'LIKE UPPER(%s)',
+         'iendswith': 'LIKE UPPER(%s)',
++        'like': 'LIKE %s',
++        'ilike': 'LIKE UPPER(%s)',
+     }
+ 
+     def __init__(self, *args, **kwargs):
+Index: db/backends/postgresql_psycopg2/operations.py
+===================================================================
+--- db/backends/postgresql_psycopg2/operations.py	(revisión: 17282)
++++ db/backends/postgresql_psycopg2/operations.py	(copia de trabajo)
+@@ -46,7 +46,8 @@
+             lookup = "%s::text"
+ 
+         # Use UPPER(x) for case-insensitive lookups; it's faster.
+-        if lookup_type in ('iexact', 'icontains', 'istartswith', 'iendswith'):
++        if lookup_type in ('iexact', 'icontains',
++                           'istartswith', 'iendswith', 'ilike'):
+             lookup = 'UPPER(%s)' % lookup
+ 
+         return lookup
