@@ -50,9 +50,17 @@ It is more quick that something like this, and more readable:
 
 ::
 
-    MyModel.objects.filter(field_name__regex='^xx.*yy.*zz$')
+    MyModel.objects.filter(field_name__regex='^xx.*YY.*zz$')
 
-This app provider two new `lookups <https://docs.djangoproject.com/en/dev/topics/db/queries/#field-lookups>`_: like and ilike.
+This app provider two new `lookups <http://docs.djangoproject.com/en/dev/topics/db/queries/#field-lookups>`_: like and ilike.
+
+Reported
+========
+
+ * `Stack overflow <http://stackoverflow.com/questions/8644146/django-query-how-to-write-where-field-like-10-8-0>`_
+ * Ticket in `Django <https://code.djangoproject.com/ticket/17473>`_
+ * `Pull request <http://github.com/django/django/pull/99>`_
+
 
 Development
 ===========
