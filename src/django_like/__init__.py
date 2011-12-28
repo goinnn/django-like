@@ -1,13 +1,12 @@
-from django.db.models.fields import Field
-from django.db.models.fields import subclassing
+from django.db import connection
+from django.db.models.fields import Field, subclassing
 from django.db.models.sql.constants import QUERY_TERMS
-from django.db.backends.sqlite3.base import DatabaseWrapper
 
 
 QUERY_TERMS['like'] = None
 QUERY_TERMS['ilike'] = None
-DatabaseWrapper.operators['like'] = DatabaseWrapper.operators['contains']
-DatabaseWrapper.operators['ilike'] = DatabaseWrapper.operators['icontains']
+connection.operators['like'] = connection.operators['contains']
+connection.operators['ilike'] = connection.operators['icontains']
 
 
 def get_prep_lookup(self, lookup_type, value):
