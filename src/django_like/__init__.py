@@ -36,7 +36,7 @@ def monkey_get_db_prep_lookup(cls):
     cls.get_db_prep_lookup_origin = cls.get_db_prep_lookup
     cls.get_db_prep_lookup = get_db_prep_lookup
     if hasattr(subclassing, 'call_with_connection_and_prepared'):  # Dj > 1.1
-        setattr(cls, 'get_db_prep_lookup', cls.get_db_prep_lookup,
+        setattr(cls, 'get_db_prep_lookup',
         subclassing.call_with_connection_and_prepared(cls.get_db_prep_lookup))
         for new_cls in cls.__subclasses__():
             monkey_get_db_prep_lookup(new_cls)
