@@ -15,7 +15,7 @@
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 def read(*rnames):
@@ -25,7 +25,7 @@ setup(
     name="django-like",
     version="0.0.1",
     author="Pablo Martin",
-    author_email="goinnn@google.com",
+    author_email="goinnn@gmail.com",
     description="Django application that provider like and ilike lookup in the querysets",
     long_description=(read('README.rst') + '\n\n' + read('CHANGES')),
     classifiers=[
@@ -36,7 +36,8 @@ setup(
     license="LGPL 3",
     keywords="django,querysets,lookup,like,ilike",
     url='https://github.com/goinnn/django-like',
-    packages=('src/django_like', ),
+    packages=find_packages(where='src'),
+    package_dir={'': 'src'},
     include_package_data=True,
     zip_safe=False,
 )
