@@ -11,7 +11,7 @@ connection.operators['ilike'] = connection.operators['icontains']
 
 def get_prep_lookup(self, lookup_type, value):
     try:
-        self.get_prep_lookup_origin(lookup_type, value)
+        return self.get_prep_lookup_origin(lookup_type, value)
     except TypeError, e:
         if lookup_type in ('like', 'ilike'):
             return value
