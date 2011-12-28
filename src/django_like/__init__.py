@@ -18,25 +18,31 @@ def get_prep_lookup(self, lookup_type, value):
         raise e
 
 
-def get_db_prep_lookup(self, lookup_type, value, connection, prepared=False):
-    value_returned = self.get_db_prep_lookup_origin(lookup_type=lookup_type,
-                                                    value=value,
-                                                    connection=connection,
-                                                    prepared=prepared)
-    if value_returned is None and lookup_type in ('like', 'ilike'):
+def get_db_prep_lookup(self, lookup_type, value, *args, **kwargs):
+    try:
+        value_returned = self.get_db_prep_lookup_origin(lookup_type,
+                                                        value,
+                                                        *args, **kwargs)
+    except TypeError, e:  # Django 1.1
+        if lookup_type in ('like', 'ilike'):
+            return [value]
+        raise e
+    if value_returned is None and lookup_type in ('like', 'ilike'):  # Dj > 1.1
         return [value]
-    return value
+    return value_returned
 
 
 def monkey_get_db_prep_lookup(cls):
     cls.get_db_prep_lookup_origin = cls.get_db_prep_lookup
     cls.get_db_prep_lookup = get_db_prep_lookup
-    setattr(cls, 'get_db_prep_lookup',
-    subclassing.call_with_connection_and_prepared(cls.get_db_prep_lookup))
-    for new_cls in cls.__subclasses__():
-        monkey_get_db_prep_lookup(new_cls)
+    if hasattr(subclassing, 'call_with_connection_and_prepared'):  # Dj > 1.1
+        setattr(cls, 'get_db_prep_lookup', cls.get_db_prep_lookup,
+        subclassing.call_with_connection_and_prepared(cls.get_db_prep_lookup))
+        for new_cls in cls.__subclasses__():
+            monkey_get_db_prep_lookup(new_cls)
 
 
 monkey_get_db_prep_lookup(Field)
-Field.get_prep_lookup_origin = Field.get_prep_lookup
-Field.get_prep_lookup = get_prep_lookup
+if hasattr(Field, 'get_prep_lookup'):
+    Field.get_prep_lookup_origin = Field.get_prep_lookup
+    Field.get_prep_lookup = get_prep_lookup
