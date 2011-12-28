@@ -42,7 +42,8 @@ Anything that you can to do with `like <http://en.wikipedia.org/wiki/Where_(SQL)
 
 ::
 
-    MyModel.objects.filter(field_name__like='xx%yy%zz')
+    MyModel.objects.filter(field_name__like='xx%YY%zz')
+    MyModel.objects.filter(field_name__ilike='xx%yy%zz')
     User.objects.filter(username__like='a%in')
 
 It is more quick that something like this, and more readable:
@@ -51,6 +52,7 @@ It is more quick that something like this, and more readable:
 
     MyModel.objects.filter(field_name__regex='^xx.*yy.*zz$')
 
+This app provider two new `lookups <https://docs.djangoproject.com/en/dev/topics/db/queries/#field-lookups>`_: like and ilike.
 
 Development
 ===========
