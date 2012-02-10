@@ -54,13 +54,19 @@ It is more quick that something like this, and more readable:
 
 This app provider two new `lookups <http://docs.djangoproject.com/en/dev/topics/db/queries/#field-lookups>`_: like and ilike.
 
+Now you can compare the time it takes to run the same query, many times, with like and with regex
+
+::
+
+    python manage.py benchmark_like
+
 Reported
 ========
 
  * `Stack overflow <http://stackoverflow.com/questions/8644146/django-query-how-to-write-where-field-like-10-8-0>`_
  * Ticket in `Django <https://code.djangoproject.com/ticket/17473>`_
  * `Pull request <http://github.com/django/django/pull/99>`_
-
+ * `Post in a blog <http://www.yaco.es/blog/contribuciones/2012/02/a-simple-and-impossible-query-in-django>`_
 
 Development
 ===========
