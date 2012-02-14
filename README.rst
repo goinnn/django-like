@@ -66,7 +66,7 @@ Reported
  * `Stack overflow <http://stackoverflow.com/questions/8644146/django-query-how-to-write-where-field-like-10-8-0>`_
  * Ticket in `Django <https://code.djangoproject.com/ticket/17473>`_
  * `Pull request <http://github.com/django/django/pull/99>`_
- * `Post in a blog <http://www.yaco.es/blog/contribuciones/2012/02/a-simple-and-impossible-query-in-django>`_
+ * `Post in a blog <http://www.yaco.es/blog/contribuciones/2012/02/a-simple-and-impossible-query-in-django/>`_
 
 Development
 ===========
