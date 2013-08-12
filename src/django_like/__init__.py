@@ -4,8 +4,8 @@ from django.db.models.fields import Field, subclassing
 from django.db.models.sql.constants import QUERY_TERMS
 
 
-QUERY_TERMS['like'] = None
-QUERY_TERMS['ilike'] = None
+QUERY_TERMS.add("like")
+QUERY_TERMS.add("like")
 connection.operators['like'] = connection.operators['contains']
 connection.operators['ilike'] = connection.operators['icontains']
 NEW_LOOKUP_TYPE = ('like', 'ilike')
