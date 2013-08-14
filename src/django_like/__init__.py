@@ -6,7 +6,7 @@ from django.db.models.sql.constants import QUERY_TERMS
 
 if isinstance(QUERY_TERMS, set):
     QUERY_TERMS.add('like')
-    QUERY_TERMS.add('like')
+    QUERY_TERMS.add('ilike')
 else:
     QUERY_TERMS['like'] = None
     QUERY_TERMS['ilike'] = None
