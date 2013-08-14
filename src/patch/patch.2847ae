@@ -1,0 +1,110 @@
+diff --git a/django/db/backends/mysql/base.py b/django/db/backends/mysql/base.py
+index 158d936..608352b 100644
+--- a/django/db/backends/mysql/base.py
++++ b/django/db/backends/mysql/base.py
+@@ -353,6 +353,8 @@ class DatabaseWrapper(BaseDatabaseWrapper):
+         'endswith': 'LIKE BINARY %s',
+         'istartswith': 'LIKE %s',
+         'iendswith': 'LIKE %s',
++        'like': 'LIKE BINARY %s',
++        'ilike': 'LIKE %s',
+     }
+ 
+     def __init__(self, *args, **kwargs):
+diff --git a/django/db/backends/oracle/base.py b/django/db/backends/oracle/base.py
+index 4ffe708..2b31159 100644
+--- a/django/db/backends/oracle/base.py
++++ b/django/db/backends/oracle/base.py
+@@ -233,7 +233,8 @@ WHEN (new.%(col_name)s IS NULL)
+         return cursor.fetchone()[0]
+ 
+     def lookup_cast(self, lookup_type):
+-        if lookup_type in ('iexact', 'icontains', 'istartswith', 'iendswith'):
++        if lookup_type in ('iexact', 'icontains', 'istartswith',
++                           'iendswith', 'ilike'):
+             return "UPPER(%s)"
+         return "%s"
+ 
+@@ -443,6 +444,8 @@ class DatabaseWrapper(BaseDatabaseWrapper):
+         'endswith': "LIKE TRANSLATE(%s USING NCHAR_CS) ESCAPE TRANSLATE('\\' USING NCHAR_CS)",
+         'istartswith': "LIKE UPPER(TRANSLATE(%s USING NCHAR_CS)) ESCAPE TRANSLATE('\\' USING NCHAR_CS)",
+         'iendswith': "LIKE UPPER(TRANSLATE(%s USING NCHAR_CS)) ESCAPE TRANSLATE('\\' USING NCHAR_CS)",
++        'like': "LIKE TRANSLATE(%s USING NCHAR_CS) ESCAPE TRANSLATE('\\' USING NCHAR_CS)",
++        'ilike': "LIKE UPPER(TRANSLATE(%s USING NCHAR_CS)) ESCAPE TRANSLATE('\\' USING NCHAR_CS)",
+     }
+ 
+     _likec_operators = _standard_operators.copy()
+diff --git a/django/db/backends/postgresql_psycopg2/base.py b/django/db/backends/postgresql_psycopg2/base.py
+index 9783c9f..508711c 100644
+--- a/django/db/backends/postgresql_psycopg2/base.py
++++ b/django/db/backends/postgresql_psycopg2/base.py
+@@ -104,6 +104,8 @@ class DatabaseWrapper(BaseDatabaseWrapper):
+         'endswith': 'LIKE %s',
+         'istartswith': 'LIKE UPPER(%s)',
+         'iendswith': 'LIKE UPPER(%s)',
++        'like': 'LIKE %s',
++        'ilike': 'LIKE UPPER(%s)',
+     }
+ 
+     def __init__(self, *args, **kwargs):
+diff --git a/django/db/backends/postgresql_psycopg2/operations.py b/django/db/backends/postgresql_psycopg2/operations.py
+index 40fe629..4a3476f 100644
+--- a/django/db/backends/postgresql_psycopg2/operations.py
++++ b/django/db/backends/postgresql_psycopg2/operations.py
+@@ -48,7 +48,8 @@ class DatabaseOperations(BaseDatabaseOperations):
+             lookup = "%s::text"
+ 
+         # Use UPPER(x) for case-insensitive lookups; it's faster.
+-        if lookup_type in ('iexact', 'icontains', 'istartswith', 'iendswith'):
++        if lookup_type in ('iexact', 'icontains', 'istartswith',
++                           'iendswith', 'ilike'):
+             lookup = 'UPPER(%s)' % lookup
+ 
+         return lookup
+diff --git a/django/db/backends/sqlite3/base.py b/django/db/backends/sqlite3/base.py
+index 6b6c6b6..a0a3dbc 100644
+--- a/django/db/backends/sqlite3/base.py
++++ b/django/db/backends/sqlite3/base.py
+@@ -254,6 +254,8 @@ class DatabaseWrapper(BaseDatabaseWrapper):
+         'endswith': "LIKE %s ESCAPE '\\'",
+         'istartswith': "LIKE %s ESCAPE '\\'",
+         'iendswith': "LIKE %s ESCAPE '\\'",
++        'like': "LIKE %s ESCAPE '\\'",
++        'ilike': "LIKE %s ESCAPE '\\'",
+     }
+ 
+     def __init__(self, *args, **kwargs):
+diff --git a/django/db/models/fields/__init__.py b/django/db/models/fields/__init__.py
+index 9949dfa..a65b2dc 100644
+--- a/django/db/models/fields/__init__.py
++++ b/django/db/models/fields/__init__.py
+@@ -315,7 +315,7 @@ class Field(object):
+         if lookup_type in (
+                 'regex', 'iregex', 'month', 'day', 'week_day', 'search',
+                 'contains', 'icontains', 'iexact', 'startswith', 'istartswith',
+-                'endswith', 'iendswith', 'isnull'
++                'endswith', 'iendswith', 'isnull', 'ilike', 'like',
+             ):
+             return value
+         elif lookup_type in ('exact', 'gt', 'gte', 'lt', 'lte'):
+@@ -352,7 +352,7 @@ class Field(object):
+             return QueryWrapper(('(%s)' % sql), params)
+ 
+         if lookup_type in ('regex', 'iregex', 'month', 'day', 'week_day',
+-                           'search'):
++                           'search', 'like', 'ilike'):
+             return [value]
+         elif lookup_type in ('exact', 'gt', 'gte', 'lt', 'lte'):
+             return [self.get_db_prep_value(value, connection=connection,
+diff --git a/django/db/models/sql/constants.py b/django/db/models/sql/constants.py
+index f750310..787d589 100644
+--- a/django/db/models/sql/constants.py
++++ b/django/db/models/sql/constants.py
+@@ -12,6 +12,7 @@ QUERY_TERMS = set([
+     'exact', 'iexact', 'contains', 'icontains', 'gt', 'gte', 'lt', 'lte', 'in',
+     'startswith', 'istartswith', 'endswith', 'iendswith', 'range', 'year',
+     'month', 'day', 'week_day', 'isnull', 'search', 'regex', 'iregex',
++    'like', 'ilike'
+ ])
+ 
+ # Size of each "chunk" for get_iterator calls.
