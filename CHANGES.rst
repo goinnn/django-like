@@ -5,6 +5,8 @@
 * Fix a littles bugs
 * Python3 compatible
 * Django 1.5 compatible
+* Thanks to:
+    * `Luke Winship <https://github.com/lukuru>`_
 
 0.0.3  (2012-02-14)
 ===================
