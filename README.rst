@@ -39,7 +39,9 @@ In your settings.py
 
     )
 
-Or apply the next `Patch <http://github.com/goinnn/django-like/blob/master/src/patch/patch.r17282>`_ (This is not neccesary, you can install the app)
+Or apply some of the next patches (This is not neccesary, you can install the app):
+    * `Django 1.4 <http://github.com/goinnn/django-like/blob/master/src/patch/patch.r17282>`_
+    * `Django 1.5 <https://github.com/goinnn/django-like/blob/master/src/patch/patch.2847ae>`_
 
 Usage
 =====
