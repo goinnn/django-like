@@ -44,7 +44,7 @@ def monkey_get_db_prep_lookup(cls):
     cls.get_db_prep_lookup = get_db_prep_lookup
     if hasattr(subclassing, 'call_with_connection_and_prepared'):  # Dj > 1.1
         setattr(cls, 'get_db_prep_lookup',
-        subclassing.call_with_connection_and_prepared(cls.get_db_prep_lookup))
+                subclassing.call_with_connection_and_prepared(cls.get_db_prep_lookup))
         for new_cls in cls.__subclasses__():
             monkey_get_db_prep_lookup(new_cls)
 
@@ -59,7 +59,7 @@ def lookup_cast(self, lookup_type):
 def monkey_ilike():
     backend_name = backend.__name__
     if 'postgres' in backend_name or \
-      'postgres' in backend_name:
+       'postgres' in backend_name:
         connection.ops.__class__.lookup_cast_origin = connection.ops.lookup_cast
         connection.ops.__class__.lookup_cast = lookup_cast
 
