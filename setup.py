@@ -23,11 +23,11 @@ def read(*rnames):
 
 setup(
     name="django-like",
-    version="0.0.3",
+    version="0.0.4",
     author="Pablo Martin",
     author_email="goinnn@gmail.com",
     description="Django application that provider like and ilike lookup in the querysets",
-    long_description=(read('README.rst') + '\n\n' + read('CHANGES')),
+    long_description=(read('README.rst') + '\n\n' + read('CHANGES.rst')),
     classifiers=[
         'Development Status :: 4 - Beta',
         'Framework :: Django',

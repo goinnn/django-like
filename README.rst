@@ -12,6 +12,12 @@ Django Like is a Django application that adds other useful fields.
 It is distributed under the terms of the GNU Lesser General Public
 License <http://www.gnu.org/licenses/lgpl.html>
 
+.. image:: https://badge.fury.io/py/django-like.png
+    :target: https://badge.fury.io/py/django-like
+
+.. image:: https://pypip.in/d/django-like/badge.png
+    :target: https://pypi.python.org/pypi/django-like
+
 
 Requeriments
 ============
@@ -60,13 +66,28 @@ Now you can compare the time it takes to run the same query, many times, with li
 
     python manage.py benchmark_like
 
+
+These are a results executing the benchmark_like in my machine:
+
+
++-------------+----------------+-----------------+-----------------+----------------+
+|             | postgres       | mysql           | sqllite         | oracle         |
++=============+================+=================+=================+================+
+| like        | 0:00:50.727005 | 0:00:14.025656  | 0:01:36.089407  | ?:??:??.?????? |
++-------------+----------------+-----------------+---------------- +----------------+
+| regex       | 0:01:38.410019 | 0:02:57.255685  | 0:09:39.527765  | ?:??:??.?????? |
++-------------+----------------+-----------------+-----------------+----------------+
+| improvement |      254%      |      600%       |      503%       | ?:??:??.?????? |
++-------------+----------------+-----------------+-----------------+----------------+
+
+
 Reported
 ========
 
  * `Stack overflow <http://stackoverflow.com/questions/8644146/django-query-how-to-write-where-field-like-10-8-0>`_
  * Ticket in `Django <https://code.djangoproject.com/ticket/17473>`_
- * `Pull request <http://github.com/django/django/pull/99>`_
- * `Post in a blog <http://www.yaco.es/blog/contribuciones/2012/02/a-simple-and-impossible-query-in-django/>`_
+ * `Pull request <https://github.com/django/django-old/pull/99>`_
+ * `Post in a blog <http://www.yaco.es/blog/en/contribuciones/2012/02/a-simple-and-impossible-query-in-django/>`_
 
 Development
 ===========

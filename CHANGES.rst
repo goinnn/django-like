@@ -1,3 +1,11 @@
+0.0.4  (2013-08-14)
+===================
+
+* Improve the README
+* Fix a littles bugs
+* Python3 compatible
+* Django 1.5 compatible
+
 0.0.3  (2012-02-14)
 ===================
 
