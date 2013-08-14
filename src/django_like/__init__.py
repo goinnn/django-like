@@ -59,7 +59,7 @@ def lookup_cast(self, lookup_type):
 def monkey_ilike():
     backend_name = backend.__name__
     if 'postgres' in backend_name or \
-       'postgres' in backend_name:
+       'oracle' in backend_name:
         connection.ops.__class__.lookup_cast_origin = connection.ops.lookup_cast
         connection.ops.__class__.lookup_cast = lookup_cast
 
