@@ -69,6 +69,7 @@ Now you can compare the time it takes to run the same query, many times, with li
 
 These are a results executing the benchmark_like in my machine:
 
+::
 
     +---------------------------+----------------+-----------------+-----------------+----------------+
     | Type & result \ Data base | postgres       | mysql           | sqllite         | oracle         |
