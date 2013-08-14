@@ -19,7 +19,7 @@ NEW_LOOKUP_TYPE = ('like', 'ilike')
 def get_prep_lookup(self, lookup_type, value):
     try:
         return self.get_prep_lookup_origin(lookup_type, value)
-    except TypeError, e:
+    except TypeError as e:
         if lookup_type in NEW_LOOKUP_TYPE:
             return value
         raise e
@@ -30,7 +30,7 @@ def get_db_prep_lookup(self, lookup_type, value, *args, **kwargs):
         value_returned = self.get_db_prep_lookup_origin(lookup_type,
                                                         value,
                                                         *args, **kwargs)
-    except TypeError, e:  # Django 1.1
+    except TypeError as e:  # Django 1.1
         if lookup_type in NEW_LOOKUP_TYPE:
             return [value]
         raise e

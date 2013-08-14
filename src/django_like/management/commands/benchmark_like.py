@@ -7,9 +7,9 @@ from django.core.management.base import BaseCommand
 
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
-            make_option('-u', '--num-users', default=10000, dest='num_users',
+        make_option('-u', '--num-users', default=10000, dest='num_users',
                     help='Min num the users'),
-            make_option('-q', '--num-queries', default=10000, dest='num_queries',
+        make_option('-q', '--num-queries', default=10000, dest='num_queries',
                     help='Min num the queries'),
     )
     help = "Benchmark between queries with like and regex"
@@ -17,23 +17,23 @@ class Command(BaseCommand):
     def handle(self, **options):
         num_users = int(options.get('num_users'))
         num_queries = int(options.get('num_queries'))
-        print 'Creating data...'
-        self.initial()
-        print 'Queries with like'
+        print('Creating data...')
+        self.initial(num_users)
+        print('Queries with like')
         time_like = self.berkmar_like(use_like=True, num_queries=num_queries)
-        print time_like
-        print 'Queries with regex'
+        print(time_like)
+        print('Queries with regex')
         time_regex = self.berkmar_like(use_like=False, num_queries=num_queries)
-        print time_regex
-        improvement = (100 * float(time_regex.seconds - time_like.seconds) / time_like.seconds)
-        print "Improvement: %s %%" % improvement
+        print(time_regex)
+        improvement = (100 * float(time_regex.total_seconds() - time_like.total_seconds()) / time_like.total_seconds())
+        print("Improvement: %s %%" % improvement)
 
     def initial(self, num_users=10000):
         if num_users < User.objects.all().count():
-            print 'The data was created'
+            print('The data was created')
             return
         for i in range(num_users):
-            User.objects.get_or_create(username='user %s' %i)
+            User.objects.get_or_create(username='user %s' % i)
 
     def berkmar_like(self, use_like=False, num_queries=10000):
         datetime_initial = None
