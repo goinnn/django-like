@@ -23,7 +23,7 @@ def read(*rnames):
 
 setup(
     name="django-like",
-    version="0.0.5",
+    version="0.0.6",
     author="Pablo Martin",
     author_email="goinnn@gmail.com",
     description="Django application that provider like and ilike lookup in the querysets",

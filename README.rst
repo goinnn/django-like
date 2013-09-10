@@ -90,7 +90,7 @@ Reported
 Development
 ===========
 
-You can get the leading edge version of django-like by doing a checkout
+You can get the bleeding edge version of django-like by doing a clone
 of its repository:
 
-  https://github.com/goinnn/django-like
+  git clone git://github.com/goinnn/django-like.git
