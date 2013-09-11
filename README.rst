@@ -91,6 +91,6 @@ Development
 ===========
 
 You can get the bleeding edge version of django-like by doing a clone
-of its repository:
+of its repository::
 
   git clone git://github.com/goinnn/django-like.git
