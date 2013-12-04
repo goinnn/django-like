@@ -38,8 +38,7 @@ setup(
     license="LGPL 3",
     keywords="django,querysets,lookup,like,ilike",
     url='https://github.com/goinnn/django-like',
-    packages=find_packages(where='src'),
-    package_dir={'': 'src'},
+    packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
 )
