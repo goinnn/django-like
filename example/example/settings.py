@@ -201,7 +201,7 @@ if django.VERSION[0] >= 1 and django.VERSION[1] >= 2:
                            'django.contrib.messages.middleware.MessageMiddleware')
     TEMPLATE_CONTEXT_PROCESSORS += ('django.contrib.messages.context_processors.messages',)
 
-if django.VERSION[0] >= 1 and django.VERSION[1] <= 1:
+if django.VERSION[0] == 1 and django.VERSION[1] <= 1:
     TEMPLATE_CONTEXT_PROCESSORS = (
         'django.core.context_processors.auth',
         'django.core.context_processors.debug',

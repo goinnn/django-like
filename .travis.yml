@@ -3,6 +3,9 @@ language: python
 install:
   - pip install -q --use-mirrors tox==1.6.1 coveralls==0.3
 
+
+before_script:
+  - psql -c 'create database django_like_example;' -U postgres
 script:
   - coverage erase
   - tox
