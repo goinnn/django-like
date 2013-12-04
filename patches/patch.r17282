@@ -1,7 +1,7 @@
 Index: django/db/models/sql/constants.py
 ===================================================================
---- django/db/models/sql/constants.py	(revisión: 17282)
-+++ django/db/models/sql/constants.py	(copia de trabajo)
+--- django/db/models/sql/constants.py	(revision: 17282)
++++ django/db/models/sql/constants.py	(working copy)
 @@ -5,6 +5,7 @@
      'exact', 'iexact', 'contains', 'icontains', 'gt', 'gte', 'lt', 'lte', 'in',
      'startswith', 'istartswith', 'endswith', 'iendswith', 'range', 'year',
@@ -12,8 +12,8 @@ Index: django/db/models/sql/constants.py
  # Size of each "chunk" for get_iterator calls.
 Index: django/db/models/fields/__init__.py
 ===================================================================
---- django/db/models/fields/__init__.py	(revisión: 17282)
-+++ django/db/models/fields/__init__.py	(copia de trabajo)
+--- django/db/models/fields/__init__.py	(revision: 17282)
++++ django/db/models/fields/__init__.py	(working copy)
 @@ -303,7 +303,7 @@
          if lookup_type in (
                  'regex', 'iregex', 'month', 'day', 'week_day', 'search',
@@ -34,8 +34,8 @@ Index: django/db/models/fields/__init__.py
              return [self.get_db_prep_value(value, connection=connection,
 Index: django/db/backends/sqlite3/base.py
 ===================================================================
---- django/db/backends/sqlite3/base.py	(revisión: 17282)
-+++ django/db/backends/sqlite3/base.py	(copia de trabajo)
+--- django/db/backends/sqlite3/base.py	(revision: 17282)
++++ django/db/backends/sqlite3/base.py	(working copy)
 @@ -218,6 +218,8 @@
          'endswith': "LIKE %s ESCAPE '\\'",
          'istartswith': "LIKE %s ESCAPE '\\'",
@@ -47,8 +47,8 @@ Index: django/db/backends/sqlite3/base.py
      def __init__(self, *args, **kwargs):
 Index: django/db/backends/mysql/base.py
 ===================================================================
---- django/db/backends/mysql/base.py	(revisión: 17282)
-+++ django/db/backends/mysql/base.py	(copia de trabajo)
+--- django/db/backends/mysql/base.py	(revision: 17282)
++++ django/db/backends/mysql/base.py	(working copy)
 @@ -302,6 +302,8 @@
          'endswith': 'LIKE BINARY %s',
          'istartswith': 'LIKE %s',
@@ -60,8 +60,8 @@ Index: django/db/backends/mysql/base.py
      def __init__(self, *args, **kwargs):
 Index: django/db/backends/oracle/base.py
 ===================================================================
---- django/db/backends/oracle/base.py	(revisión: 17282)
-+++ django/db/backends/oracle/base.py	(copia de trabajo)
+--- django/db/backends/oracle/base.py	(revision: 17282)
++++ django/db/backends/oracle/base.py	(working copy)
 @@ -218,7 +218,8 @@
          return cursor.fetchone()[0]
  
@@ -83,8 +83,8 @@ Index: django/db/backends/oracle/base.py
      _likec_operators = _standard_operators.copy()
 Index: django/db/backends/postgresql_psycopg2/base.py
 ===================================================================
---- django/db/backends/postgresql_psycopg2/base.py	(revisión: 17282)
-+++ django/db/backends/postgresql_psycopg2/base.py	(copia de trabajo)
+--- django/db/backends/postgresql_psycopg2/base.py	(revision: 17282)
++++ django/db/backends/postgresql_psycopg2/base.py	(working copy)
 @@ -101,6 +101,8 @@
          'endswith': 'LIKE %s',
          'istartswith': 'LIKE UPPER(%s)',
@@ -96,8 +96,8 @@ Index: django/db/backends/postgresql_psycopg2/base.py
      def __init__(self, *args, **kwargs):
 Index: django/db/backends/postgresql_psycopg2/operations.py
 ===================================================================
---- django/db/backends/postgresql_psycopg2/operations.py	(revisión: 17282)
-+++ django/db/backends/postgresql_psycopg2/operations.py	(copia de trabajo)
+--- django/db/backends/postgresql_psycopg2/operations.py	(revision: 17282)
++++ django/db/backends/postgresql_psycopg2/operations.py	(working copy)
 @@ -46,7 +46,8 @@
              lookup = "%s::text"
  
