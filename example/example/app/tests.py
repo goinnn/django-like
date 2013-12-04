@@ -14,14 +14,32 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
+from django.core.exceptions import FieldError
 from django.contrib.auth.models import User
-
 from django.test import TestCase
 
 
 class DjangoLikeTestCase(TestCase):
 
-    def test_query(self):
+    def test_like(self):
         users_like = User.objects.filter(username__like="u%%r%")
         users_regex = User.objects.filter(username__regex="^u..r.$")
         self.assertEqual(list(users_like), list(users_regex))
+        self.assertEqual(users_like.count(), 4)
+
+    def test_ilike(self):
+        users_ilike = User.objects.filter(username__ilike="U%%R%")
+        users_regex1 = User.objects.filter(username__regex="^u..r.$")
+        self.assertEqual(list(users_ilike), list(users_regex1))
+        self.assertEqual(users_ilike.count(), 4)
+
+        users_regex2 = User.objects.filter(username__regex="^U..R.$")
+        self.assertNotEqual(list(users_ilike), list(users_regex2))
+        self.assertNotEqual(list(users_regex2), 0)
+
+    def test_lookup_error(self):
+        try:
+            User.objects.filter(username__error="u%%r%")
+            raise AssertionError("The before query should have failed")
+        except FieldError:
+            pass
