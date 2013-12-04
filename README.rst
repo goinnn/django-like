@@ -12,6 +12,13 @@ Django Like is a Django application that adds other useful fields.
 It is distributed under the terms of the GNU Lesser General Public
 License <http://www.gnu.org/licenses/lgpl.html>
 
+
+.. image:: https://travis-ci.org/goinnn/django-like.png?branch=master
+    :target: https://travis-ci.org/goinnn/django-like
+
+.. image:: https://coveralls.io/repos/goinnn/django-like/badge.png?branch=master
+    :target: https://coveralls.io/r/goinnn/django-like
+
 .. image:: https://badge.fury.io/py/django-like.png
     :target: https://badge.fury.io/py/django-like
 
