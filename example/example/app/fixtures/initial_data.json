@@ -1,0 +1,92 @@
+[
+{
+    "pk": 1, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "admin", 
+        "first_name": "Pablo", 
+        "last_name": "Martin", 
+        "is_active": true, 
+        "is_superuser": true, 
+        "is_staff": true, 
+        "last_login": "2013-12-04T15:45:56.988Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$12000$LgEmhRl2RT6X$0Cu1w/+BBT+IlmobJHKg8Y88swhq6BJAAHp8ktxnW1c=", 
+        "email": "", 
+        "date_joined": "2013-10-17T08:04:29.582Z"
+    }
+},
+{
+    "pk": 2, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "user1", 
+        "first_name": "Name 1", 
+        "last_name": "Last Name 1", 
+        "is_active": true, 
+        "is_superuser": false, 
+        "is_staff": false, 
+        "last_login": "2013-12-04T15:46:22Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$12000$1o4tFJAqIaA8$N2ExPX1mdbKeTV6zQNLpBnggXrq9CwlDH6ryG38haQY=", 
+        "email": "", 
+        "date_joined": "2013-12-04T15:46:22Z"
+    }
+},
+{
+    "pk": 3, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "user2", 
+        "first_name": "Name 2", 
+        "last_name": "Last Name 2", 
+        "is_active": true, 
+        "is_superuser": false, 
+        "is_staff": false, 
+        "last_login": "2013-12-04T15:48:11Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$12000$5Apj9aH5U0RL$UlKJ9WWuJa6zYrcK+LEr2K/2s4hCaraC05nDh5PVhJw=", 
+        "email": "", 
+        "date_joined": "2013-12-04T15:48:11Z"
+    }
+},
+{
+    "pk": 4, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "user3", 
+        "first_name": "Name 3", 
+        "last_name": "Last Name 3", 
+        "is_active": true, 
+        "is_superuser": false, 
+        "is_staff": false, 
+        "last_login": "2013-12-04T15:48:26Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$12000$3bn0sivHY2L2$cXOnbCa2BD+LxJaTC9Jb3wJ3oMhPIrEMy+3iN3A1eyw=", 
+        "email": "", 
+        "date_joined": "2013-12-04T15:48:26Z"
+    }
+},
+{
+    "pk": 5, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "user4", 
+        "first_name": "Name 4", 
+        "last_name": "Last Name 4", 
+        "is_active": true, 
+        "is_superuser": false, 
+        "is_staff": false, 
+        "last_login": "2013-12-04T15:48:32Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$12000$kjHBZQhIOZJ1$qoYQRx/DFsPq4GM2YnFFx4DtsNXt/aQ2WPdEfoSY5ZI=", 
+        "email": "", 
+        "date_joined": "2013-12-04T15:48:32Z"
+    }
+}
+]
