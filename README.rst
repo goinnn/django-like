@@ -29,7 +29,7 @@ License <http://www.gnu.org/licenses/lgpl.html>
 Requeriments
 ============
 
-Django 1.1 (or higher). It's possible that works with other versions lower 1.1
+* `Django <http://pypi.python.org/pypi/django/>`_ (>=1.1). It's possible that works with other versions lower 1.1
 
 
 Installation
