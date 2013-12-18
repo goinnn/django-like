@@ -11,14 +11,14 @@
             </tr>
             <tr>
                 <td>
-                    <pre>User.objects.filter(username__regex="^[uU]..[rR].$")</pre>
+                    <pre>User.objects.filter(username__regex="^[uU].*[rR].$")</pre>
                 </td>
                 <td> {{ users_regex }} </td>
                 <td> {{ time_regex }} </td>
             </tr>
             <tr>
                 <td>
-                    <pre>User.objects.filter(username__ilike="u%%r%")</pre>
+                    <pre>User.objects.filter(username__ilike="u%r%")</pre>
                 </td>
                 <td> {{ users_like }} </td>
                 <td> {{ time_like }} </td>

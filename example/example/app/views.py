@@ -23,11 +23,11 @@ from django.template import RequestContext
 
 def app_index(request):
     datetime_regex_start = datetime.datetime.now()
-    users_regex = list(User.objects.filter(username__regex="^[uU]..[rR].$"))
+    users_regex = list(User.objects.filter(username__regex="^[uU].*[rR].$"))
     time_regex = (datetime.datetime.now() - datetime_regex_start).total_seconds() * 1000
 
     datetime_like_start = datetime.datetime.now()
-    users_like = list(User.objects.filter(username__ilike="u%%r%"))
+    users_like = list(User.objects.filter(username__ilike="u%r%"))
     time_like = (datetime.datetime.now() - datetime_like_start).total_seconds() * 1000
 
     improvement = (100 * float(time_regex - time_like) / time_like)
