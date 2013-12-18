@@ -57,4 +57,6 @@ class DjangoLikeTestCase(TestCase):
             pass
 
     def test_benchmark_like(self):
+        if not 'django_like' in settings.INSTALLED_APPS:
+            return  # Running the tests with Django patched
         call_command('benchmark_like', num_users=10, num_queries=10)
