@@ -37,8 +37,6 @@ class Command(BaseCommand):
 
     def berkmar_like(self, use_like=False, num_queries=10000):
         datetime_initial = None
-        User.objects.count()
-
         for i in range(num_queries):
             if i == 0:
                 datetime_initial = datetime.datetime.now()

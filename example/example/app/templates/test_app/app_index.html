@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <table border="1">
+            <tr>
+                <th>Query</th>
+                <th>Result</th>
+                <th>Time (milliseconds)</th>
+            </tr>
+            <tr>
+                <td>
+                    <pre>User.objects.filter(username__regex="^[uU]..[rR].$")</pre>
+                </td>
+                <td> {{ users_regex }} </td>
+                <td> {{ time_regex }} </td>
+            </tr>
+            <tr>
+                <td>
+                    <pre>User.objects.filter(username__ilike="u%%r%")</pre>
+                </td>
+                <td> {{ users_like }} </td>
+                <td> {{ time_like }} </td>
+            </tr>
+        </table>
+        <p>Improvement if we use the ilike lookup instead of regex lookup: {{ improvement|floatformat }}%</p>
+        <p>If you want to know more about it please see the <a href="https://pypi.python.org/pypi/django-like#usage"> usage section</a>
+    </body>
+</html>
