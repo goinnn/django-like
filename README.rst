@@ -102,3 +102,15 @@ You can get the bleeding edge version of django-like by doing a clone
 of its repository::
 
   git clone git://github.com/goinnn/django-like.git
+
+
+Example project
+===============
+
+In the source tree, you will find a directory called  `example <https://github.com/goinnn/django-like/tree/master/example/>`_. It contains
+a readily setup project that uses django-like. You can run it as usual:
+
+::
+
+    python manage.py syncdb --noinput
+    python manage.py runserver
