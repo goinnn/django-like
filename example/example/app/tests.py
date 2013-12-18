@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db.models.sql.constants import QUERY_TERMS
 from django.test import TestCase
@@ -35,13 +36,16 @@ class DjangoLikeTestCase(TestCase):
 
     def test_ilike(self):
         users_ilike = User.objects.filter(username__ilike="U%%R%")
-        users_regex1 = User.objects.filter(username__regex="^u..r.$")
+        users_regex1 = User.objects.filter(username__regex="^[Uu]..[Rr].$")
         self.assertEqual(list(users_ilike), list(users_regex1))
         self.assertEqual(users_ilike.count(), 4)
 
         users_regex2 = User.objects.filter(username__regex="^U..R.$")
         self.assertNotEqual(list(users_ilike), list(users_regex2))
         self.assertNotEqual(list(users_regex2), 0)
+        if 'sqlite3' not in settings.DATABASES['default']['ENGINE']:
+            users_like = User.objects.filter(username__like="U%%R%")
+            self.assertEqual(list(users_like), list(users_regex2))
 
     def test_lookup_error(self):
         try:
