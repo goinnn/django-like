@@ -6,6 +6,7 @@ install:
 
 before_script:
   - psql -c 'create database django_like_example;' -U postgres
+  - mysql -e 'create database django_like_example;'
 script:
   - coverage erase
   - tox
