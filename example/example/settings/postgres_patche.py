@@ -1,4 +1,4 @@
-from example.settings import *
+from example.settings.postgres import *
 
 django_like_index = INSTALLED_APPS.index('django_like')
 

@@ -1,4 +1,4 @@
-from example.settings import *
+from example.settings.base import *
 
 DATABASES['default']['NAME'] = 'django_like_example'
 DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
