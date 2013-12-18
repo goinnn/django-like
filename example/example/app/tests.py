@@ -14,9 +14,15 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
-from django.core.exceptions import FieldError
 from django.contrib.auth.models import User
+from django.db.models.sql.constants import QUERY_TERMS
 from django.test import TestCase
+
+
+if isinstance(QUERY_TERMS, set):
+    QUERY_TERMS.add('error')
+else:
+    QUERY_TERMS['error'] = None
 
 
 class DjangoLikeTestCase(TestCase):
@@ -41,5 +47,5 @@ class DjangoLikeTestCase(TestCase):
         try:
             User.objects.filter(username__error="u%%r%")
             raise AssertionError("The before query should have failed")
-        except FieldError:
+        except TypeError:
             pass
