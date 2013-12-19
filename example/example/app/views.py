@@ -21,14 +21,25 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 
+def total_seconds(td):
+    # https://github.com/whimboo/mozdownload/commit/f1c524a50265f931c8954d1ea2b10b8fb845ea18
+    # Keep backward compatibility with Python 2.6 which doesn't have
+    # this method
+    if hasattr(td, 'total_seconds'):
+        return td.total_seconds()
+    else:
+        return (float(td.microseconds) +
+                (td.seconds + td.days * 24 * 3600) * 10 ** 6) / 10 ** 6
+
+
 def app_index(request):
     datetime_regex_start = datetime.datetime.now()
     users_regex = list(User.objects.filter(username__regex="^[uU].*[rR].$"))
-    time_regex = (datetime.datetime.now() - datetime_regex_start).total_seconds() * 1000
+    time_regex = total_seconds(datetime.datetime.now() - datetime_regex_start) * 1000
 
     datetime_like_start = datetime.datetime.now()
     users_like = list(User.objects.filter(username__ilike="u%r%"))
-    time_like = (datetime.datetime.now() - datetime_like_start).total_seconds() * 1000
+    time_like = total_seconds(datetime.datetime.now() - datetime_like_start) * 1000
 
     improvement = (100 * float(time_regex - time_like) / time_like)
     return render_to_response('test_app/app_index.html',

@@ -5,6 +5,20 @@ from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 
 
+def total_seconds_backward_compatible(td):
+    return (float(td.microseconds) +
+            (td.seconds + td.days * 24 * 3600) * 10 ** 6) / 10 ** 6
+
+
+def total_seconds(td):
+    # https://github.com/whimboo/mozdownload/commit/f1c524a50265f931c8954d1ea2b10b8fb845ea18
+    # Keep backward compatibility with Python 2.6 which doesn't have
+    # this method
+    if hasattr(td, 'total_seconds'):
+        return td.total_seconds()
+    return total_seconds_backward_compatible(td)
+
+
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
         make_option('-u', '--num-users', default=10000, dest='num_users',
@@ -25,7 +39,7 @@ class Command(BaseCommand):
         print('Queries with regex')
         time_regex = self.berkmar_like(use_like=False, num_queries=num_queries)
         print(time_regex)
-        improvement = (100 * float(time_regex.total_seconds() - time_like.total_seconds()) / time_like.total_seconds())
+        improvement = (100 * float(total_seconds(time_regex) - total_seconds(time_like)) / total_seconds(time_like))
         print("Improvement: %s %%" % improvement)
 
     def initial(self, num_users=10000):

@@ -13,11 +13,12 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
+import datetime
 
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.management import call_command
-
+from django.core.urlresolvers import reverse
 from django.db.models.sql.constants import QUERY_TERMS
 from django.test import TestCase
 
@@ -60,3 +61,20 @@ class DjangoLikeTestCase(TestCase):
         if not 'django_like' in settings.INSTALLED_APPS:
             return  # Running the tests with Django patched
         call_command('benchmark_like', num_users=10, num_queries=10)
+
+    def test_index_example(self):
+        response = self.client.get(reverse('app_index'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_total_seconds(self):
+        if not 'django_like' in settings.INSTALLED_APPS or not hasattr(datetime.timedelta, 'total_seconds'):
+            return  # Running the tests with Django patched or python 2.6
+        from django_like.management.commands.benchmark_like import total_seconds, total_seconds_backward_compatible
+        tds = [datetime.timedelta(1),
+               datetime.timedelta(1000),
+               datetime.timedelta(0.1),
+               datetime.timedelta(10000000),
+               datetime.timedelta(0.000001)]
+        for td in tds:
+            self.assertEqual(td.total_seconds(), total_seconds(td))
+            self.assertEqual(td.total_seconds(), total_seconds_backward_compatible(td))
