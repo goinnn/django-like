@@ -46,7 +46,7 @@ In your settings.py
 
     )
 
-Or apply some of the next patches (This is not neccesary, you can install the app):
+Or apply some of the next patches (This is not neccesary, you can only install the app):
     * `Django 1.4 <http://github.com/goinnn/django-like/blob/master/patches/patch.r17282>`_
     * `Django 1.5 <https://github.com/goinnn/django-like/blob/master/patches/patch.2847ae>`_
     * `Django 1.6 <https://github.com/goinnn/django-like/blob/master/patches/patch.6691ab>`_
@@ -54,7 +54,7 @@ Or apply some of the next patches (This is not neccesary, you can install the ap
 Usage
 =====
 
-Anything that you can to do with `like <http://en.wikipedia.org/wiki/Where_(SQL)#LIKE>`_ sentence in SQL
+Something that you can to do with `like <http://en.wikipedia.org/wiki/Where_(SQL)#LIKE>`_ sentence
 
 ::
 
@@ -62,7 +62,7 @@ Anything that you can to do with `like <http://en.wikipedia.org/wiki/Where_(SQL)
     MyModel.objects.filter(field_name__ilike='xx%yy%zz')
     User.objects.filter(username__like='a%in')
 
-It is more quick that something like this, and more readable:
+It is more quick and more readable that something like this:
 
 ::
 
@@ -77,7 +77,7 @@ Now you can compare the time it takes to run the same query, many times, with li
     python manage.py benchmark_like
 
 
-These are a results executing the benchmark_like in my machine:
+These are a results executing the `benchmark_like <https://github.com/goinnn/django-like/blob/master/django_like/management/commands/benchmark_like.py>`_ in my machine:
 
 ========================== =============== ================= ================= ==============
 Type & result \\ Database  postgres        mysql             sqllite           oracle
