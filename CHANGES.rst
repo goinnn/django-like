@@ -1,3 +1,13 @@
+0.1.0  (2013-12-20)
+===================
+
+* Added example project
+* Added tests (for SQLite, MySQL and PostgreSQL)
+* Integrated with travis and coverals
+* Python2.6 compatible (benchmark_like)
+* Added patche to Django 1.6
+
+
 0.0.7  (2013-09-11)
 ===================
 

@@ -1,13 +1,13 @@
 .. contents::
 
 ===========
-Django Like
+django-like
 ===========
 
 Information
 ===========
 
-Django Like is a Django application that adds other useful fields.
+django-like is a Django application that adds other useful fields.
 
 It is distributed under the terms of the GNU Lesser General Public
 License <http://www.gnu.org/licenses/lgpl.html>
