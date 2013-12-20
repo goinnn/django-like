@@ -91,7 +91,7 @@ Reported
 ========
 
  * `Stack overflow <http://stackoverflow.com/questions/8644146/django-query-how-to-write-where-field-like-10-8-0>`_
- * Ticket in `Django <https://code.djangoproject.com/ticket/17473>`_
+ * `Ticket in Django <https://code.djangoproject.com/ticket/17473>`_
  * `Pull request <https://github.com/django/django-old/pull/99>`_
  * `Post in a blog <http://www.yaco.es/blog/en/contribuciones/2012/02/a-simple-and-impossible-query-in-django/>`_
 
@@ -99,7 +99,9 @@ Development
 ===========
 
 You can get the bleeding edge version of django-like by doing a clone
-of its repository::
+of its repository
+
+::
 
   git clone git://github.com/goinnn/django-like.git
 
