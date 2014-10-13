@@ -3,7 +3,7 @@ import django
 from django.db import backend
 
 
-if django.VERSION[0] >= 1 and django.VERSION[1] >= 7:
+if django.VERSION[0] == 1 and django.VERSION[1] >= 7:
 
     from django.db.models.lookups import Contains, IContains
     from django.db.models import Field
