@@ -14,9 +14,6 @@ if django.VERSION[0] == 1 and django.VERSION[1] >= 7:
         def get_rhs_op(self, connection, rhs):
             return connection.operators['contains'] % rhs
 
-        def as_sql(self, qn, connection):
-            return super(Like, self).as_sql(qn, connection)
-
     class ILike(IContains):
         lookup_name = 'ilike'
 
@@ -30,9 +27,6 @@ if django.VERSION[0] == 1 and django.VERSION[1] >= 7:
 
         def get_rhs_op(self, connection, rhs):
             return connection.operators['icontains'] % rhs
-
-        def as_sql(self, qn, connection):
-            return super(ILike, self).as_sql(qn, connection)
 
     Field.register_lookup(Like)
     Field.register_lookup(ILike)
