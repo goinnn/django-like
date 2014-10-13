@@ -38,7 +38,7 @@ Installation
 
 * To use the "like/ilike lookup" with Django 1.4, 1.5 or 1.6 you need to install django_like (this app make a monkey patching) or to patch your Django.
 * To use the "like/ilike lookup" with Django 1.3, 1.2 or 1.1 you need to install django_like (this app make a monkey patching), You could patch your Django but I have not make a patch, but this will be very easy. You only have to see the monkey patch and to update the same, or you could see other patch and update more or less the same.
-* To use the "like/ilike lookup" with Django 1.7 you only need to install django_like but now this application ***does not make monkey patching***. Now Django provide an API to do it.
+* To use the "like/ilike lookup" with Django 1.7 you only need to install django_like but now this application **does not make monkey patching**. Now Django provide an API to do it.
 
 
 
