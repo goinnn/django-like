@@ -1,3 +1,8 @@
+0.2.0 (2014-10-13)
+===================
+* Support to Django 1.7.
+* For Django 1.7, django_like use the lookup API
+
 0.1.0  (2013-12-20)
 ===================
 

@@ -13,10 +13,13 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
+import django
+
 import datetime
 
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.exceptions import FieldError
 from django.core.management import call_command
 from django.core.urlresolvers import reverse
 from django.db.models.sql.constants import QUERY_TERMS
@@ -30,6 +33,8 @@ else:
 
 
 class DjangoLikeTestCase(TestCase):
+
+    fixtures = ['app_data.json']
 
     def test_like(self):
         users_like = User.objects.filter(username__like="u%r%")
@@ -54,11 +59,15 @@ class DjangoLikeTestCase(TestCase):
         try:
             User.objects.filter(username__error="u%r%")
             raise AssertionError("The before query should have failed")
-        except TypeError:
-            pass
+        except TypeError as e:
+            if django.VERSION[0] == 1 and django.VERSION[1] >= 7:
+                raise e
+        except FieldError as e:
+            if django.VERSION[0] == 1 and django.VERSION[1] < 7:
+                raise e
 
     def test_benchmark_like(self):
-        if not 'django_like' in settings.INSTALLED_APPS:
+        if 'django_like' not in settings.INSTALLED_APPS:
             return  # Running the tests with Django patched
         call_command('benchmark_like', num_users=10, num_queries=10)
 
@@ -67,7 +76,7 @@ class DjangoLikeTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_total_seconds(self):
-        if not 'django_like' in settings.INSTALLED_APPS or not hasattr(datetime.timedelta, 'total_seconds'):
+        if 'django_like' not in settings.INSTALLED_APPS or not hasattr(datetime.timedelta, 'total_seconds'):
             return  # Running the tests with Django patched or python 2.6
         from django_like.management.commands.benchmark_like import total_seconds, total_seconds_backward_compatible
         tds = [datetime.timedelta(1),
